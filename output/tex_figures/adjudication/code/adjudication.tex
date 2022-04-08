@@ -1,0 +1,70 @@
+\begin{figure}
+    \centering
+    \caption{Comparison of CJARS and State Court Processing Series-derived statistics for felony defendants in large urban counties}
+    \label{fig:adj_combined}
+
+
+\begin{tikzpicture}
+\setcounter{PanelCounter}{1}
+\pgfplotsset{
+    every axis/.style={
+        width=5in,
+        height=3in,
+        axis x line*=bottom,
+        axis y line*=left,
+        ytick = {-2,-1,0,1,2,3},
+        xtick = {-2,-1,0,1,2,3},
+    },
+    discard if not/.style 2 args={
+        filter discard warning=false,
+        x filter/.code={
+            \edef\tempa{\thisrow{#1}}
+            \edef\tempb{#2}
+            \ifx\tempa\tempb
+            \else
+                \def\pgfmathresult{inf}
+            \fi
+        },
+    }
+}
+\begin{axis}[%
+    name=SCPS,
+    xlabel={CJARS (z-scores)},
+    ylabel={SCPS (z-scores)},
+    ylabel style={yshift=-.5cm},
+    mark options={scale=2,opacity=.8},
+    legend style={at={(0.5,-0.2)},anchor=north},
+    legend columns={3},
+]
+\addplot [no markers, black, forget plot] coordinates {(-2,-2) (3,3)};
+\addplot+ [%
+    mark=x,
+    mark options={gray,scale=2,opacity=.5,line width=1pt},
+    discard if not={source}{offense},
+    only marks,
+] table [x=CJARS, y=SCPS, col sep=comma] {../tbl/adjudication_output_combined.csv};
+\legend{Offense type}
+\addplot+ [%
+    discard if not={offense_type}{any},
+    scatter/classes={
+        age={violet,mark=o,line width=1pt},
+        race={cyan,mark=square,line width=1pt},
+        sex={green!70!black,mark=triangle,line width=1pt},
+        disposition={magenta,mark=star,line width=1pt},
+        timing={red,mark=diamond,line width=1pt},
+        incarceration={blue,mark=pentagon,line width=1pt},
+        probation={yellow!60!black,mark=oplus,line width=1pt}% no comma
+    },
+    scatter,only marks,
+    scatter src=explicit symbolic,
+] table [x=CJARS, y=SCPS, meta=source, col sep=comma] {../tbl/adjudication_output_combined.csv};
+\legend{Offense type,Age,Race/ethnicity,Gender,Disposition,Adjudication duration,Incarceration length,Probation length}
+\end{axis}
+\end{tikzpicture}
+
+\begin{minipage}{\linewidth}~\\ \small
+Source: Calculations from CJARS data held by the University of Michigan and not protected by 13 USC \S 9a \cite{papp2021}.
+
+Notes: This figure compares average caseload characteristics of CJARS adjudication microdata filed in May of the years 1996, 1998, 2000, 2002, 2004, 2006, and 2009 from jurisdictions representative of the 75 largest counties to the average caseload characteristics reported in the 1996, 1998, 2000, 2002, 2004, 2006, and 2009 waves of the State Court Processing Statistics series. SCPS samples felony filings in May of the reported years. Comparisons are made on offense type, defendant gender and race/ethnicity, average defendant age, incarceration length, probation length, disposition type, and length of time between disposition and sentencing. Differences between CJARS and SCPS generated statistics were transformed into z-scores (where $z = (x_i-\mu)\slash{\sigma}$) to improve readability.
+\end{minipage}
+\end{figure}

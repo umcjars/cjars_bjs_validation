@@ -1,0 +1,167 @@
+\begin{figure}
+\vspace*{-\baselineskip}
+\centering
+    \caption{Comparison of CJARS, NPS, and NCRP-based estimates of annual incarceration entries, by state}
+    \label{fig:inc_entries_academic}
+\vspace*{-\baselineskip}
+\begin{tikzpicture}
+\setcounter{PanelCounter}{1}
+\pgfplotscreateplotcyclelist{science}{
+    violet,every mark/.append style={fill=violet},mark=*\\
+    cyan,densely dashed,every mark/.append style={fill=cyan},mark=square*\\
+    green!70!black,solid,every mark/.append style={solid,fill=green!70!black},mark=triangle*\\
+    magenta,densely dashed,every mark/.append style={solid,fill=magenta},mark=diamond*\\
+    red,solid,every mark/.append style={solid,fill=red},mark=star\\
+    blue,densely dashed,every mark/.append style={solid,fill=blue},mark=diamond*\\
+}
+\pgfplotsset{
+    every axis/.style={
+        width=3in,
+        height=2in,
+        no markers,
+        axis x line*=bottom,
+        axis y line*=left,
+        yticklabel={\pgfmathparse{(int(\tick))}{\pgfmathresult}k},
+        ytick scale label code/.code={},
+        scaled y ticks=base 10:-3,
+        xmin=1980,
+        xmax=2020,
+        xtick = {1980,1990,2000,2010,2020},
+        xticklabels = {,,,,},
+        cycle list name=science,
+    },
+    every axis title/.style={at={(0.5,1)},above,yshift=-3pt}
+}
+\begin{scope}[local bounding box=AllFigsBoundingBox]
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Arizona},
+    name=Arizona,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Arizona, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Arizona, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Arizona, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Colorado},
+    name=Colorado,
+    at={(Arizona.right of origin)},
+    anchor=left of origin,
+    xshift=.5in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Colorado, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Colorado, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Colorado, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Florida},
+    name=Florida,
+    at={(Arizona.below origin)},
+    anchor=above origin,
+    yshift=-.2in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Florida, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Florida, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Florida, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Michigan},
+    name=Michigan,
+    at={(Florida.right of origin)},
+    anchor=left of origin,
+    xshift=.5in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Michigan, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Michigan, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Michigan, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Nebraska},
+    name=Nebraska,
+    at={(Florida.below origin)},
+    anchor=above origin,
+    yshift=-.2in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Nebraska, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Nebraska, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Nebraska, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} North Carolina},
+    name=North Carolina,
+    at={(Nebraska.right of origin)},
+    anchor=left of origin,
+    xshift=.5in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_North_Carolina, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_North_Carolina, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_North_Carolina, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Pennsylvania},
+    name=Pennsylvania,
+    at={(Nebraska.below origin)},
+    anchor=above origin,
+    yshift=-.2in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Pennsylvania, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Pennsylvania, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Pennsylvania, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Texas},
+    name=Texas,
+    at={(Pennsylvania.right of origin)},
+    anchor=left of origin,
+    xshift=.5in,
+    yshift=.1in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Texas, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Texas, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Texas, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Washington},
+    name=Washington,
+    at={(Pennsylvania.below origin)},
+    anchor=above origin,
+    yshift=-.2in,
+    xticklabels = {1980,1990,2000,2010,2020},
+    xlabel = {Year},
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Washington, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Washington, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Washington, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {{\bf (\alph{PanelCounter}\stepcounter{PanelCounter})} Wisconsin},
+    name=Wisconsin,
+    at={(Washington.right of origin)},
+    anchor=left of origin,
+    xshift=.5in,
+    yshift=-.075in,
+    xticklabels = {1980,1990,2000,2010,2020},
+    xlabel = {Year},
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Wisconsin, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};\label{cjars}
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=nps_entries_Wisconsin, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};\label{nps}
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=ncrp_entries_Wisconsin, col sep=comma] {../tbl/incarceration_event_counts_entries_all.csv};\label{ncrp}
+\end{axis}
+\end{scope}
+\node[rotate=90,anchor=south,yshift=-.5cm] at (AllFigsBoundingBox.west) {Entry count (thousands per year)};
+\node[draw,fill=white,anchor=north,inner sep=.2em,
+yshift=-.25cm,
+] at (AllFigsBoundingBox.south) {
+\setlength{\tabcolsep}{.15em}\renewcommand{\arraystretch}{.75}
+    \begin{tabular}{@{}cc@{\hskip 1em}cc@{\hskip 1em}cc@{}}
+    \multicolumn{6}{c}{Source of prison entry data} \\
+    \ref{cjars} & CJARS & \ref{nps} & NPS & \ref{ncrp} & NCRP \\
+    \end{tabular}%
+};
+\end{tikzpicture}
+
+\begin{minipage}{\linewidth} ~\\ \small
+Source: Calculations from CJARS data held by the University of Michigan and not protected by 13 USC \S 9a \cite{papp2021}.
+
+Notes: These graphs compare the yearly counts of individuals entering prison in a given state. Each graph covers the period of time between 1980 and 2020. However, historical coverage of data varies across states for CJARS, the NPS, and the NCRP. Yearly entry counts were estimated by creating a count of individuals that entered prison in a given year using CJARS and NCRP microdata, respectively. Yearly entry counts are reported using aggregate estimates from the NPS.
+\end{minipage}
+\end{figure}

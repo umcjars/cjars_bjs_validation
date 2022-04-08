@@ -1,0 +1,93 @@
+\begin{figure}
+    \centering
+    \caption{Comparison of CJARS and Annual Probation Survey-based estimates of annual probation entries, by state}
+    \label{fig:pro_entries_academic}
+\begin{tikzpicture}
+\setcounter{PanelCounter}{1}
+\pgfplotscreateplotcyclelist{science}{
+    violet,every mark/.append style={fill=violet},mark=*\\
+    navy,densely dashed,every mark/.append style={fill=navy},mark=square*\\
+    green!70!black,solid,every mark/.append style={solid,fill=green!70!black},mark=triangle*\\
+    magenta,densely dashed,every mark/.append style={solid,fill=magenta},mark=diamond*\\
+    red,solid,every mark/.append style={solid,fill=red},mark=star\\
+    blue,densely dashed,every mark/.append style={solid,fill=blue},mark=diamond*\\
+}
+\pgfplotsset{
+    every axis/.style={
+        width=3in,
+        height=2in,
+        title style={yshift=-.25cm},
+        no markers,
+        axis x line*=bottom,
+        axis y line*=left,
+        yticklabel={\pgfmathparse{(int(\tick))}{\pgfmathresult}k},
+        ytick scale label code/.code={},
+        scaled y ticks=base 10:-3,
+        xmin=1980,
+        xmax=2020,
+        xtick = {1980,1990,2000,2010,2020},
+        xticklabels = {,,,,},
+        cycle list name=science,
+    }
+}
+\begin{scope}[local bounding box=AllFigsBoundingBox]
+\begin{axis}[%
+    title = {Panel \Alph{PanelCounter}\stepcounter{PanelCounter}. Michigan},
+    name=Michigan,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Michigan, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=aps_entries_Michigan, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {Panel \Alph{PanelCounter}\stepcounter{PanelCounter}. North Carolina},
+    name=North Carolina,
+    at={(Michigan.right of origin)},
+    anchor=left of origin,
+    xshift=.5in,
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_North_Carolina, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=aps_entries_North_Carolina, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {Panel \Alph{PanelCounter}\stepcounter{PanelCounter}. Texas},
+    name=Texas,
+    at={(Michigan.below origin)},
+    anchor=above origin,
+    yshift=-.25in,
+    xticklabels = {1980,1990,2000,2010,2020},
+    xlabel = {Year},
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Texas, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=aps_entries_Texas, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};
+\end{axis}
+\begin{axis}[%
+    title = {Panel \Alph{PanelCounter}\stepcounter{PanelCounter}. Wisconsin},
+    name=Wisconsin,
+    at={(North Carolina.below origin)},
+    anchor=above origin,
+    yshift=-.25in,
+    xticklabels = {1980,1990,2000,2010,2020},
+    xlabel = {Year},
+]
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=cjars_entries_Wisconsin, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};\label{cjars}
+\addplot+ [restrict x to domain=1980:2020, line width=1pt] table [x=year_, y=aps_entries_Wisconsin, col sep=comma] {../tbl/probation_event_counts_entries_all.csv};\label{aprobations}
+\end{axis}
+\end{scope}
+\node[rotate=90,anchor=south,yshift=-.5cm] at (AllFigsBoundingBox.west) {Yearly probation entries (in thousands)};
+\node[draw,fill=white,anchor=north,inner sep=.2em,
+yshift=-.25cm,
+] at (AllFigsBoundingBox.south) {
+\setlength{\tabcolsep}{.15em}\renewcommand{\arraystretch}{.75}
+    \begin{tabular}{@{}cc@{\hskip 1em}cc@{\hskip 1em}cc@{}}
+    \multicolumn{6}{c}{Source of probation data} \\
+    \ref{cjars} & CJARS & & & \ref{aprobations} & Annual Probation Survey \\
+    \end{tabular}%
+};
+\end{tikzpicture}
+
+\begin{minipage}{\linewidth}~\\ \small
+Source: Calculations from CJARS data held by the University of Michigan and not protected by 13 USC \S 9a \cite{papp2021}.
+
+Notes: These graphs compare the yearly counts of individuals beginning probation terms in a given state. Each graph covers the period of time between 1980 and 2020. However, historical coverage of data varies across states for CJARS and the Annual Probation Survey. Yearly entry counts were estimated by creating a count of individuals that began probation in a given year using CJARS microdata. Yearly entry counts are reported using aggregate estimates from the Annual Probation Survey.
+\end{minipage}
+\end{figure}
