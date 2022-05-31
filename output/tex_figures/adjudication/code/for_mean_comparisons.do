@@ -1,13 +1,13 @@
 
 	
 ********************************************Generating Output**************************************
-cd "$tbldir\tex_figures\adjudication\tbl"
+cd "F:\SCPS data"
 
 global var_list age white black hispanic race_other male female diverted dismissal convicted time incarceration probation drug property public_order violent /*assault burglary driving_related drug_trafficking forgery_fraud larceny_theft motor_vehicle_theft murder other_drug other_property other_public_order other_violent rape robbery weapons*/ 
 
 /**** CJARS ****/
 clear 
-use "top_75_roster_merged.dta", replace
+use "data\top_75_roster_merged.dta", replace
 
 recode race (1 = 1) (2 = 0) (3 = 0) (4 = 0) (5 = 0) (6 = 0) (. = .), gen(white)
 recode race (1 = 0) (2 = 1) (3 = 0) (4 = 0) (5 = 0) (6 = 0) (. = .), gen(black)
@@ -53,7 +53,7 @@ save "`cjars_data'"
 /**** SCPS ****/
 
 clear 
-use "SCPS_all_years.dta" 
+use "data\all_years\SCPS_all_years.dta" 
 
 *age 
 replace age  = . if age > 90
@@ -184,8 +184,17 @@ foreach measure in $var_list {
 	reg `measure' scps i.event_year##i.county [pw=N]   , cluster(group)
 	eststo
 }
-esttab using "means_comparison_pval.csv", replace nostar noobs p  noparentheses nogaps keep(scps)
-esttab using "means_comparison_se.csv", replace nostar noobs se  noparentheses nogaps n keep(scps)
+esttab using "output\means_comparison_pval.csv", replace nostar noobs p  noparentheses nogaps keep(scps)
+esttab using "output\means_comparison_se.csv", replace nostar noobs se  noparentheses nogaps n keep(scps)
+
+eststo clear
+foreach measure in $var_list {
+	reg `measure' scps i.event_year##i.county  , cluster(group)
+	eststo
+}
+esttab using "output\means_comparison_pval_noweight.csv", replace nostar noobs p  noparentheses nogaps keep(scps)
+esttab using "output\means_comparison_se_noweight.csv", replace nostar noobs se  noparentheses nogaps n keep(scps)
+
 breaaak
 
 
@@ -202,6 +211,6 @@ foreach measure in $var_list {
 		reg `measure' if event_year == `year'  , vce(bootstrap)
 		eststo
 	}
-	esttab using "means_`measure'.csv", replace nostar noobs se plain
+	esttab using "output\means_`measure'.csv", replace nostar noobs se plain
 }
 
