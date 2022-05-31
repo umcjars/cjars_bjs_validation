@@ -91,7 +91,6 @@ save `keep_states'
 clear
 import sas "$datadir\cjars_probation_2021q1.sas7bdat", case(lower)
 destring pro_st_juris_fips, replace
-drop if inlist(pro_st_juris_fips, 5, 12, 24) // getting rid of non-historical states
 gen entry_dt =  mdy(pro_bgn_dt_mm, pro_bgn_dt_dd, pro_bgn_dt_yyyy)
 format entry_dt %td
 gen exit_dt =  mdy(pro_end_dt_mm, pro_end_dt_dd, pro_end_dt_yyyy)	
