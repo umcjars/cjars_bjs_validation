@@ -1,13 +1,13 @@
 
 	
 ********************************************Generating Output**************************************
-cd "F:\SCPS data"
+cd "$tbldir\tex_figures\adjudication\tbl"
 
 global var_list age white black hispanic race_other male female diverted dismissal convicted time incarceration probation drug property public_order violent /*assault burglary driving_related drug_trafficking forgery_fraud larceny_theft motor_vehicle_theft murder other_drug other_property other_public_order other_violent rape robbery weapons*/ 
 
 /**** CJARS ****/
 clear 
-use "data\top_75_roster_merged.dta", replace
+use "top_75_roster_merged.dta", replace
 
 recode race (1 = 1) (2 = 0) (3 = 0) (4 = 0) (5 = 0) (6 = 0) (. = .), gen(white)
 recode race (1 = 0) (2 = 1) (3 = 0) (4 = 0) (5 = 0) (6 = 0) (. = .), gen(black)
@@ -53,7 +53,7 @@ save "`cjars_data'"
 /**** SCPS ****/
 
 clear 
-use "data\all_years\SCPS_all_years.dta" 
+use "SCPS_all_years.dta" 
 
 *age 
 replace age  = . if age > 90
@@ -211,6 +211,6 @@ foreach measure in $var_list {
 		reg `measure' if event_year == `year'  , vce(bootstrap)
 		eststo
 	}
-	esttab using "output\means_`measure'.csv", replace nostar noobs se plain
+	esttab using "means_`measure'.csv", replace nostar noobs se plain
 }
 
